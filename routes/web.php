@@ -11,10 +11,14 @@
 |
 */
 
-Route::get('/', 'IndexController@index');
+// Route::get('/', 'IndexController@index');
 
 Route::get('page/add', 'IndexController@add');
 
 Route::post('page/add', 'IndexController@insert')->name('applicationInsert');
 
 Route::delete('page/delete/{application}', 'IndexController@delete')->name('applicationDelete');
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');

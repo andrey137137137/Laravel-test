@@ -17,7 +17,7 @@ class CreateApplicationsTable extends Migration
             $table->increments('id');
             $table->string('theme');
             $table->text('message');
-            $table->integer('user_id');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
         });
     }
