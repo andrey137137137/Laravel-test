@@ -24,11 +24,16 @@ class HomeController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function index() {
-    return view('home')->with(['applications' => Application::all(), 'header' => 'Заявки']);
+    $applications = Application::query()
+      ->join('users', 'applications.user_id', '=', 'users.id')
+      ->select('applications.*', 'users.name', 'users.email')
+      ->get();
+
+    return view('home')->with(['applications' => $applications, 'header' => 'Заявки']);
   }
 
-  public function add() {
-    return view('add')->with('header', 'Отправить заявку');
+  public function form() {
+    return view('form')->with('header', 'Отправить заявку');
   }
 
   public function insert(Request $request) {
@@ -40,17 +45,18 @@ class HomeController extends Controller
 
     $application = new Application;
     $application->fill($request->all());
+    $application->save();
 
-    if ($application->save()) {
-      $from = 'andrey27x777@gmail.com';
+    // if ($application->save()) {
+    //   $from = 'andrey27x777@gmail.com';
 
-      Mail::send(['text' => 'mail'], ['name', 'Test Application'], function ($message)
-      {
-        $message->to();
-      });
-    }
+    //   Mail::send(['text' => 'mail'], ['name', 'Test Application'], function ($message)
+    //   {
+    //     $message->to();
+    //   });
+    // }
 
-    return redirect('/');
+    return redirect('/application/form');
   }
 
   public function delete(Application $application)

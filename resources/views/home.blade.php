@@ -2,42 +2,45 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Заявки</div>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="panel panel-default">
+        <h1 class="panel-heading">Заявки</h1>
 
-                <div class="panel-body">
+        <div class="panel-body">
 
-                  @if (session('status'))
-                    <div class="alert alert-success">
-                      {{ session('status') }}
-                    </div>
-                  @endif
-
-                  <form class="form-signin" method="POST" action="{{ route('applicationInsert') }}">
-
-                    <div class="form-label-group">
-                      <label for="user-id"></label>
-                      <input class="form-control" id="user-id" type="text" name="user_id" placeholder="Пользователь">
-                    </div>
-                    <div class="form-label-group">
-                      <label for="theme"></label>
-                      <input class="form-control" id="theme" type="text" name="theme" placeholder="Тема">
-                    </div>
-                    <div class="form-label-group">
-                      <label for="message"></label>
-                      <textarea class="form-control" id="message" name="message" placeholder="Сообщение"></textarea>
-                    </div>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Отправить</button>
-                
-                    {{ csrf_field() }}
-                
-                  </form>
-
-                </div>
+          @if (session('status'))
+            <div class="alert alert-success">
+              {{ session('status') }}
             </div>
+          @endif
+
+          @if (count($applications))
+            <div class="row">
+              @foreach ($applications as $item)
+                <article class="col-md-4">
+                  <h2>{{ $item->theme }}</h2>
+                  <p>{{ $item->message }}</p>
+                  <p>{{ $item->name }}</p>
+                  <p>{{ $item->email }}</p>
+                  <p>{{ $item->created_at }}</p>
+                  <p>{{ $item->updated_at }}</p>
+                  <form action="{{ route('applicationDelete', ['id' => $item->id]) }}" method="post">
+                    {{-- <input type="hidden" name="_method" value="DELETE"> --}}
+                    {{ method_field('DELETE') }}
+                    {{ csrf_field() }}
+                    <button class="btn btn-danger" type="submit">Удалить</button>
+                  </form>
+                </article>
+              @endforeach
+            </div>
+          @else
+            <p> Пока нет заявок. </p>
+          @endif
+
         </div>
+      </div>
     </div>
+  </div>
 </div>
 @endsection
