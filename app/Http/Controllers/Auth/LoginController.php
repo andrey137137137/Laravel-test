@@ -54,8 +54,10 @@ class LoginController extends Controller
 
     switch ($this->guard()->user()->role_id) {
       case '1':
+        // $path = 'users';
         break;
       case '2':
+        $path = 'applications';
         break;
       case '3':
         $path = 'application-form';

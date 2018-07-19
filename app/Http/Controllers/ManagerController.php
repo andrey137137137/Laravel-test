@@ -6,6 +6,20 @@ namespace App\Http\Controllers;
 
 class ManagerController extends ApplicationController
 {
+  protected $view = 'applications';
+  protected $redirectTo = 'applications';
+
+  /**
+   * Create a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    parent::__construct();
+    $this->middleware('manager');
+  }
+
   /**
    * Show the application dashboard.
    *

@@ -9,6 +9,17 @@ class UserController extends ApplicationController
   protected $view = 'form';
   protected $redirectTo = 'application-form';
 
+  /**
+   * Create a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    parent::__construct();
+    $this->middleware('user');
+  }
+
   public function index() {
     return view($this->view)->with('header', 'Отправить заявку');
   }

@@ -20,4 +20,8 @@ class ApplicationController extends Controller
   {
     $this->middleware('auth');
   }
+
+  public function index() {
+    return view($this->view)->with('header', 'Главная');
+  }
 }

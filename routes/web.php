@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('/', 'ApplicationController@index')->name('home');
+
 Route::get('application-form', 'UserController@index');
 
 Route::post('application-form', 'UserController@insert')->name('applicationInsert');
@@ -19,4 +21,4 @@ Route::delete('application/delete/{application}', 'ManagerController@delete')->n
 
 Auth::routes();
 
-Route::get('/', 'ManagerController@index')->name('home');
+Route::get('applications', 'ManagerController@index')->name('home');
