@@ -3,35 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Application;
-use Mail;
 
-class HomeController extends Controller
+class UserController extends Controller
 {
-  /**
-   * Create a new controller instance.
-   *
-   * @return void
-   */
-  public function __construct()
-  {
-    $this->middleware('auth');
-  }
-
-  /**
-   * Show the application dashboard.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function index() {
-    $applications = Application::query()
-      ->join('users', 'applications.user_id', '=', 'users.id')
-      ->select('applications.*', 'users.name', 'users.email')
-      ->get();
-
-    return view('home')->with(['applications' => $applications, 'header' => 'Заявки']);
-  }
-
   public function form() {
     return view('form')->with('header', 'Отправить заявку');
   }
@@ -58,12 +32,4 @@ class HomeController extends Controller
 
     return redirect('/application/form');
   }
-
-  public function delete(Application $application)
-  {
-    $application->delete();
-
-    return redirect('/');
-  }
-
 }
