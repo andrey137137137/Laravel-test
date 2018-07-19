@@ -12,18 +12,19 @@ class ManagerController extends ApplicationController
    * @return \Illuminate\Http\Response
    */
   public function index() {
-    $applications = Application::query()
+    $model = $this->appModelName;
+    $applications = $model::query()
       ->join('users', 'applications.user_id', '=', 'users.id')
       ->select('applications.*', 'users.name', 'users.email')
       ->get();
 
-    return view('home')->with(['applications' => $applications, 'header' => 'Заявки']);
+    return view($this->view)->with(['applications' => $applications, 'header' => 'Заявки']);
   }
 
-  public function delete(Application $application)
+  public function delete(\App\Application $application)
   {
     $application->delete();
 
-    return redirect('/');
+    return redirect($this->redirectTo);
   }
 }

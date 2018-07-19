@@ -11,7 +11,11 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->delete();
-        DB::table('users')->insert(['name' => 'admin', 'email' => 'admin@gmail.com', 'password' => bcrypt('admin'), 'role_id' => 1]);
+        DB::table('users')->insert(['name' => 'tanya', 'email' => 'tanya@gmail.com', 'password' => bcrypt('user'), 'role_id' => 3]);
+        DB::table('users')->insert(['name' => 'dima', 'email' => 'dima@gmail.com', 'password' => bcrypt('user'), 'role_id' => 3]);
+        DB::table('users')->insert(['name' => 'andrey', 'email' => 'andrey@gmail.com', 'password' => bcrypt('user'), 'role_id' => 3]);
+        DB::table('users')->insert(['name' => 'vasya', 'email' => 'vasya@gmail.com', 'password' => bcrypt('manager'), 'role_id' => 2]);
+        DB::table('users')->insert(['name' => 'alex', 'email' => 'alex@gmail.com', 'password' => bcrypt('manager'), 'role_id' => 2]);
+        DB::table('users')->insert(['name' => 'dima', 'email' => 'dmitriy@gmail.com', 'password' => bcrypt('admin'), 'role_id' => 1]);
     }
 }

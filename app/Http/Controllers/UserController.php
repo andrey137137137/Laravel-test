@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserController extends ApplicationController
 {
-  public function form() {
-    return view('form')->with('header', 'Отправить заявку');
+  protected $view = 'form';
+  protected $redirectTo = 'application-form';
+
+  public function index() {
+    return view($this->view)->with('header', 'Отправить заявку');
   }
 
   public function insert(Request $request) {
@@ -17,7 +20,7 @@ class UserController extends Controller
       'message' => 'required']
     );
 
-    $application = new Application;
+    $application = new $this->appModelName;
     $application->fill($request->all());
     $application->save();
 
@@ -30,6 +33,6 @@ class UserController extends Controller
     //   });
     // }
 
-    return redirect('/application/form');
+    return redirect($this->redirectTo);
   }
 }

@@ -7,6 +7,10 @@ use App\Application;
 
 class ApplicationController extends Controller
 {
+  protected $view = 'home';
+  protected $redirectTo = '/';
+  protected $appModelName = 'App\Application';
+
   /**
    * Create a new controller instance.
    *

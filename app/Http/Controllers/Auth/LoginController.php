@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -49,20 +50,18 @@ class LoginController extends Controller
 
     $this->clearLoginAttempts($request);
 
-    $path = '';
+    $path = '/';
 
-    switch ($this->guard()->user()->role) {
+    switch ($this->guard()->user()->role_id) {
       case '1':
-        $path = '';
         break;
       case '2':
-        $path = '';
         break;
       case '3':
         $path = 'application-form';
         break;
     }
-    
+// dump($this->guard()->user()->role_id);
     return redirect($path);
   }
 }
