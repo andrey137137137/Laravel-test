@@ -16,7 +16,8 @@ class CreateRolesTable extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->unsignedTinyInteger('edit')->default(0);
+            $table->unsignedTinyInteger('edit_user')->default(0);
+            $table->unsignedTinyInteger('edit_application')->default(0);
         });
     }
 

@@ -16,7 +16,9 @@ class ManagerMiddleware
    */
   public function handle($request, Closure $next)
   {
-    if (Auth::user()->role_id == 2) {
+    $role = Auth::user()->role;
+
+    if (!$role->edit_user && $role->edit_application) {
       return $next($request);
     }
 

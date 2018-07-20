@@ -51,19 +51,16 @@ class LoginController extends Controller
     $this->clearLoginAttempts($request);
 
     $path = '/';
+    $role = $this->guard()->user()->role;
 
-    switch ($this->guard()->user()->role_id) {
-      case '1':
-        // $path = 'users';
-        break;
-      case '2':
-        $path = 'applications';
-        break;
-      case '3':
-        $path = 'application-form';
-        break;
+    if ($role->edit_user) {
+      // $path = 'users';
+    } else if ($role->edit_application) {
+      $path = 'applications';
+    } else {
+      $path = 'application-form';
     }
-// dump($this->guard()->user()->role_id);
+
     return redirect($path);
   }
 }

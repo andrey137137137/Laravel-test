@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Auth;
 
-class UserMiddleware
+class AdminMiddleware
 {
   /**
    * Handle an incoming request.
@@ -18,7 +18,7 @@ class UserMiddleware
   {
     $role = Auth::user()->role;
 
-    if (!$role->edit_user && !$role->edit_application) {
+    if ($role->edit_user) {
       return $next($request);
     }
 
