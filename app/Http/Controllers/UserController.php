@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Mail as MyMale;
 
 class UserController extends ApplicationController
 {
@@ -33,16 +35,14 @@ class UserController extends ApplicationController
 
     $application = new $this->appModelName;
     $application->fill($request->all());
-    $application->save();
+    // $application->save();
 
-    // if ($application->save()) {
-    //   $from = 'andrey27x777@gmail.com';
-
-    //   Mail::send(['text' => 'mail'], ['name', 'Test Application'], function ($message)
-    //   {
-    //     $message->to();
-    //   });
-    // }
+    if ($application->save()) {
+      $name = $application->theme;
+      $message = $application->message;
+      $email = $application->user->email;
+      Mail::to('to_mail@mail.com')->send(new MyMale($name, $email, $message));
+    }
 
     return redirect($this->redirectTo);
   }
