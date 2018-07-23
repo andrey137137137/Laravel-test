@@ -27,10 +27,20 @@ class User extends Authenticatable
     'rule', 'password', 'remember_token'
   ];
 
+  /**
+   * Undocumented function
+   *
+   * @return void
+   */
   public function role() {
     return $this->belongsTo(Role::class);
   }
 
+  /**
+   * Undocumented function
+   *
+   * @return void
+   */
   public function applications() {
     return $this->hasMany(Application::class);
   }

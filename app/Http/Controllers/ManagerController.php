@@ -6,7 +6,18 @@ namespace App\Http\Controllers;
 
 class ManagerController extends ApplicationController
 {
+  /**
+   * Undocumented variable
+   *
+   * @var string
+   */
   protected $view = 'applications';
+
+  /**
+   * Undocumented variable
+   *
+   * @var string
+   */
   protected $redirectTo = 'applications';
 
   /**
@@ -35,6 +46,12 @@ class ManagerController extends ApplicationController
     return view($this->view)->with(['applications' => $applications, 'header' => 'Заявки']);
   }
 
+  /**
+   * Undocumented function
+   *
+   * @param \App\Application $application
+   * @return void
+   */
   public function delete(\App\Application $application)
   {
     $application->delete();

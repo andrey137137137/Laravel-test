@@ -7,8 +7,25 @@ use App\Application;
 
 class ApplicationController extends Controller
 {
+  /**
+   * Undocumented variable
+   *
+   * @var string
+   */
   protected $view = 'home';
+
+  /**
+   * Undocumented variable
+   *
+   * @var string
+   */
   protected $redirectTo = '/';
+
+  /**
+   * Undocumented variable
+   *
+   * @var string
+   */
   protected $appModelName = 'App\Application';
 
   /**
@@ -21,6 +38,11 @@ class ApplicationController extends Controller
     $this->middleware('auth');
   }
 
+  /**
+   * Undocumented function
+   *
+   * @return void
+   */
   public function index() {
     return view($this->view)->with('header', 'Главная');
   }

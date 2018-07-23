@@ -7,12 +7,29 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class Mail extends Mailable
+class ApplicationMail extends Mailable
 {
   use Queueable, SerializesModels;
 
+  /**
+   * Undocumented variable
+   *
+   * @var [type]
+   */
   protected $name;
+  
+  /**
+   * Undocumented variable
+   *
+   * @var [type]
+   */
   protected $email;
+  
+  /**
+   * Undocumented variable
+   *
+   * @var [type]
+   */
   protected $message;
 
   /**
