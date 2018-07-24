@@ -17,34 +17,26 @@ class SendUserMailJob implements ShouldQueue
   /**
    * Undocumented variable
    *
-   * @var [type]
+   * @var Integer
    */
-  protected $name;
-  
+  private $id;
+
   /**
    * Undocumented variable
    *
-   * @var [type]
+   * @var array
    */
-  protected $email;
-  
-  /**
-   * Undocumented variable
-   *
-   * @var [type]
-   */
-  protected $message;
+  private $params = ['name' => '', 'email' => '', 'msg' => ''];
 
   /**
    * Create a new job instance.
    *
    * @return void
    */
-  public function __construct($name, $email, $message)
+  public function __construct($id, $params)
   {
-    $this->name = $name;
-    $this->email = $email;
-    $this->message = $message;
+    $this->id = $id;
+    $this->params = $params;
   }
 
   /**
@@ -54,6 +46,6 @@ class SendUserMailJob implements ShouldQueue
    */
   public function handle()
   {
-    Mail::to('to_mail@mail.com')->send(new ApplicationMail($this->name, $this->email, $this->message));
+    Mail::to('to_mail@mail.com')->send(new ApplicationMail($this->params));
   }
 }

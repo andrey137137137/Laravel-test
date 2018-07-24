@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Application;
 
 use Illuminate\Http\Request;
 use App\Jobs\SendUserMailJob;
 
-class UserController extends ApplicationController
+class UserController extends Controller
 {
   /**
    * Undocumented variable
@@ -58,10 +58,14 @@ class UserController extends ApplicationController
     $application->fill($request->all());
 
     if ($application->save()) {
-      $name = $application->theme;
-      $message = $application->message;
-      $email = $application->user->email;
-      SendUserMailJob::dispatch($name, $email, $message);
+      SendUserMailJob::dispatch(
+        $application->id, 
+        [
+          'name' => $application->theme,
+          'msg' => $application->message,
+          'email' => $application->user->email
+        ]
+      );
     }
 
     return redirect($this->redirectTo);

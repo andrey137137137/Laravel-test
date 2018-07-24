@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Application;
 
 use Illuminate\Http\Request;
 use App\Application;
 
-class ApplicationController extends Controller
+class Controller extends \App\Http\Controllers\Controller
 {
   /**
    * Undocumented variable

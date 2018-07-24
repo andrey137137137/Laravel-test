@@ -14,34 +14,18 @@ class ApplicationMail extends Mailable
   /**
    * Undocumented variable
    *
-   * @var [type]
+   * @var array
    */
-  protected $name;
-  
-  /**
-   * Undocumented variable
-   *
-   * @var [type]
-   */
-  protected $email;
-  
-  /**
-   * Undocumented variable
-   *
-   * @var [type]
-   */
-  protected $message;
+  private $params = ['name' => '', 'email' => '', 'msg' => ''];
 
   /**
    * Create a new message instance.
    *
    * @return void
    */
-  public function __construct($name, $email, $message)
+  public function __construct($params)
   {
-    $this->name = $name;
-    $this->email = $email;
-    $this->message = $message;
+    $this->params = $params;
   }
 
   /**
@@ -52,7 +36,6 @@ class ApplicationMail extends Mailable
   public function build()
   {
     // return $this->view('mail.application')->with(['name' => $this->name, 'email' => $this->email, 'message' => $this->message])->subject('Новое письмо');
-    // var_dump($this->message);
-    return $this->view('mail.application')->with(['name' => $this->name, 'email' => $this->email, 'msg' => $this->message]);
+    return $this->view('mail.application')->with($this->params)->subject('Новое письмо');
   }
 }

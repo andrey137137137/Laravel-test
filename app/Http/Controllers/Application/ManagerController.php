@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Application;
 
 // use Illuminate\Http\Request;
 
-class ManagerController extends ApplicationController
+class ManagerController extends Controller
 {
   /**
    * Undocumented variable

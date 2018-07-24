@@ -11,14 +11,14 @@
 |
 */
 
-Route::get('/', 'ApplicationController@index')->name('home');
+Route::get('/', 'Application\Controller@index')->name('home');
 
-Route::get('/application-form', 'UserController@index');
+Route::get('/application-form', 'Application\UserController@index');
 
-Route::post('/application-form', 'UserController@insert')->name('applicationInsert');
+Route::post('/application-form', 'Application\UserController@insert')->name('applicationInsert');
 
-Route::delete('/application/delete/{application}', 'ManagerController@delete')->name('applicationDelete');
+Route::delete('/application/delete/{application}', 'Application\ManagerController@delete')->name('applicationDelete');
 
 Auth::routes();
 
-Route::get('/applications', 'ManagerController@index')->name('home');
+Route::get('/applications', 'Application\ManagerController@index')->name('home');
