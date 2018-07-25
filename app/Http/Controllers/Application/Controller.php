@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Application;
 
 use Illuminate\Http\Request;
 use App\Application;
+use Carbon\Carbon;
 
 class Controller extends \App\Http\Controllers\Controller
 {
@@ -36,6 +37,7 @@ class Controller extends \App\Http\Controllers\Controller
   public function __construct()
   {
     $this->middleware('auth');
+    Carbon::setLocale('ru');
   }
 
   /**

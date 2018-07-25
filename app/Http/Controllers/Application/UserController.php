@@ -4,9 +4,19 @@ namespace App\Http\Controllers\Application;
 
 use Illuminate\Http\Request;
 use App\Jobs\SendUserMailJob;
+use Carbon\Carbon;
+use Auth;
 
 class UserController extends Controller
 {
+  /**
+   * Undocumented variable
+   *
+   * @var integer
+   */
+  public $intervalBeetwenSending = 10;
+  // public $intervalBeetwenSending = 1440;
+
   /**
    * Undocumented variable
    *
@@ -38,6 +48,34 @@ class UserController extends Controller
    * @return void
    */
   public function index() {
+    $application = new $this->appModelName;
+    $fields = $application::where('user_id', Auth::user()->id)->latest('id')->first();
+
+    // dump($fields);
+
+    if ($fields) {
+
+      $latestDate = Carbon::createFromTimeString($fields->created_at);
+
+      $interval = $this->intervalBeetwenSending;
+      $now = Carbon::now();
+      $diff = $now->diffInMinutes($latestDate);
+
+      // dump($latestDate);
+      // dump($now);
+      // dump($diff);
+
+      if ($diff < $interval) {
+        $availableDate = clone $latestDate;
+        $availableDate->addMinutes($interval);
+        $restTime = $now->diffForHumans($availableDate, true);
+    
+        // dump($availableDate);
+
+        return view('alert')->with(['header' => 'Подождите пожалуйста ' . $restTime, 'restTime' => $restTime]);
+      }
+    }
+
     return view($this->view)->with('header', 'Отправить заявку');
   }
 
@@ -56,6 +94,7 @@ class UserController extends Controller
 
     $application = new $this->appModelName;
     $application->fill($request->all());
+    $application->created_at = Carbon::now();
 
     if ($application->save()) {
       SendUserMailJob::dispatch(

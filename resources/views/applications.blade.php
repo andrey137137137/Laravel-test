@@ -16,24 +16,21 @@
           @endif
 
           @if (count($applications))
-            <div class="row">
-              @foreach ($applications as $item)
-                <article class="col-md-4">
-                  <h2>{{ $item->theme }}</h2>
-                  <p>{{ $item->message }}</p>
-                  <p>{{ $item->name }}</p>
-                  <p>{{ $item->email }}</p>
-                  <p>{{ $item->created_at }}</p>
-                  <p>{{ $item->updated_at }}</p>
-                  <form action="{{ route('applicationDelete', ['id' => $item->id]) }}" method="post">
-                    {{-- <input type="hidden" name="_method" value="DELETE"> --}}
-                    {{ method_field('DELETE') }}
-                    {{ csrf_field() }}
-                    <button class="btn btn-danger" type="submit">Удалить</button>
-                  </form>
-                </article>
-              @endforeach
-            </div>
+            @foreach ($applications as $item)
+              <div class="row">
+                <h2>{{ $item->theme }}</h2>
+                <p>{{ $item->message }}</p>
+                <p>{{ $item->name }}</p>
+                <p>{{ $item->email }}</p>
+                <p>{{ $item->created_at }}</p>
+                <form action="{{ route('applicationDelete', ['id' => $item->id]) }}" method="post">
+                  {{-- <input type="hidden" name="_method" value="DELETE"> --}}
+                  {{ method_field('DELETE') }}
+                  {{ csrf_field() }}
+                  <button class="btn btn-danger" type="submit">Удалить</button>
+                </form>
+              </div>
+            @endforeach
           @else
             <p> Пока нет заявок. </p>
           @endif

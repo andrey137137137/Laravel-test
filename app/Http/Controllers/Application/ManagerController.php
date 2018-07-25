@@ -38,7 +38,7 @@ class ManagerController extends Controller
    */
   public function index() {
     $model = $this->appModelName;
-    $applications = $model::query()
+    $applications = $model::where('marked', 0)
       ->join('users', 'applications.user_id', '=', 'users.id')
       ->select('applications.*', 'users.name', 'users.email')
       ->get();
