@@ -49,12 +49,16 @@ class ManagerController extends Controller
   /**
    * Undocumented function
    *
-   * @param \App\Application $application
+   * @param integer $application
    * @return void
    */
-  public function delete(\App\Application $application)
+  public function mark($id)
   {
-    $application->delete();
+    $model = $this->appModelName;
+    $application = $model::find($id);
+    // dump($application);
+    $application->marked = 1;
+    $application->save();
 
     return redirect($this->redirectTo);
   }

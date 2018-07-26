@@ -35,7 +35,6 @@ class ApplicationMail extends Mailable
    */
   public function build()
   {
-    // return $this->view('mail.application')->with(['name' => $this->name, 'email' => $this->email, 'message' => $this->message])->subject('Новое письмо');
-    return $this->view('mail.application')->with($this->params)->subject('Новое письмо');
+    return $this->from($this->params['email'])->view('mail.application')->with($this->params)->subject('Новое письмо');
   }
 }

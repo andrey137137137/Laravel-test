@@ -14,7 +14,7 @@ class UserController extends Controller
    *
    * @var integer
    */
-  public $intervalBeetwenSending = 10;
+  public $intervalBeetwenSending = 0;
   // public $intervalBeetwenSending = 1440;
 
   /**
@@ -29,7 +29,7 @@ class UserController extends Controller
    *
    * @var string
    */
-  protected $redirectTo = 'application-form';
+  protected $redirectTo = 'application/form';
 
   /**
    * Create a new controller instance.

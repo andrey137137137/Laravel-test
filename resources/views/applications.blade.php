@@ -23,11 +23,11 @@
                 <p>{{ $item->name }}</p>
                 <p>{{ $item->email }}</p>
                 <p>{{ $item->created_at }}</p>
-                <form action="{{ route('applicationDelete', ['id' => $item->id]) }}" method="post">
+                <form action="{{ route('applicationMark', ['id' => $item->id]) }}" method="post">
                   {{-- <input type="hidden" name="_method" value="DELETE"> --}}
-                  {{ method_field('DELETE') }}
+                  {{-- {{ method_field('DELETE') }} --}}
                   {{ csrf_field() }}
-                  <button class="btn btn-danger" type="submit">Удалить</button>
+                  <button class="btn btn-danger" type="submit">Прочитано</button>
                 </form>
               </div>
             @endforeach

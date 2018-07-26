@@ -17,6 +17,7 @@ class UserMiddleware
   public function handle($request, Closure $next)
   {
     $role = Auth::user()->role;
+    view()->share(['userLink' => 'application/form']);
 
     if (!$role->edit_user && !$role->edit_application) {
       return $next($request);

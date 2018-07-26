@@ -27,10 +27,17 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
+                    <ul class="nav navbar-nav navbar-left">
+                        <!-- Branding Image -->
+                        <li>
+                            <a class="navbar-brand" href="{{ url('/') }}">
+                                {{ config('app.name', 'Laravel') }}
+                            </a>
+                        </li>
+                        @if (!Auth::guest())
+                            <li><a href="{{ url($userLink) }}">Заявки</a></li>
+                        @endif
+                    </ul>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">

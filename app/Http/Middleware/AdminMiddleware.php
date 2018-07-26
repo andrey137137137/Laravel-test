@@ -17,6 +17,7 @@ class AdminMiddleware
   public function handle($request, Closure $next)
   {
     $role = Auth::user()->role;
+    view()->share(['userLink' => '/']);
 
     if ($role->edit_user) {
       return $next($request);

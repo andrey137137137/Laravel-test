@@ -58,7 +58,7 @@ class LoginController extends Controller
     } else if ($role->edit_application) {
       $path = 'applications';
     } else {
-      $path = 'application-form';
+      $path = 'application/form';
     }
 
     return redirect($path);
