@@ -14,9 +14,16 @@ class ApplicationMail extends Mailable
   /**
    * Undocumented variable
    *
+   * @var integer
+   */
+  private $id;
+
+  /**
+   * Undocumented variable
+   *
    * @var array
    */
-  private $params = ['name' => '', 'email' => '', 'msg' => ''];
+  private $params = ['theme' => '', 'msg' => ''];
 
   /**
    * Create a new message instance.
@@ -25,7 +32,18 @@ class ApplicationMail extends Mailable
    */
   public function __construct($params)
   {
-    $this->params = $params;
+    $this->id = isset($params['id']) ? $params['id'] : 0;
+
+    if (isset($params['from'])) {
+      $name = isset($params['name']) ? $params['name'] : null;
+      $this->from($params['from'], $name);
+    }
+
+    foreach ($this->params as $key => $value) {
+      if (isset($params[$key])) {
+        $this->params[$key] = $params[$key];
+      }
+    }
   }
 
   /**
@@ -35,6 +53,6 @@ class ApplicationMail extends Mailable
    */
   public function build()
   {
-    return $this->from($this->params['email'])->view('mail.application')->with($this->params)->subject('Новое письмо');
+    return $this->view('mail.application')->with($this->params)->subject('Заявка №' . $this->id);
   }
 }

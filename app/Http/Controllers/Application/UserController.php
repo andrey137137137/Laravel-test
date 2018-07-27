@@ -14,8 +14,8 @@ class UserController extends Controller
    *
    * @var integer
    */
-  public $intervalBeetwenSending = 0;
-  // public $intervalBeetwenSending = 1440;
+  public $intervalBetweenSending = 1;
+  // public $intervalBetweenSending = 1440;
 
   /**
    * Undocumented variable
@@ -51,26 +51,16 @@ class UserController extends Controller
     $application = new $this->appModelName;
     $fields = $application::where('user_id', Auth::user()->id)->latest('id')->first();
 
-    // dump($fields);
-
     if ($fields) {
 
       $latestDate = Carbon::createFromTimeString($fields->created_at);
-
-      $interval = $this->intervalBeetwenSending;
       $now = Carbon::now();
-      $diff = $now->diffInMinutes($latestDate);
 
-      // dump($latestDate);
-      // dump($now);
-      // dump($diff);
+      if ($now->diffInMinutes($latestDate) < $this->intervalBetweenSending) {
 
-      if ($diff < $interval) {
         $availableDate = clone $latestDate;
-        $availableDate->addMinutes($interval);
+        $availableDate->addMinutes($this->intervalBetweenSending);
         $restTime = $now->diffForHumans($availableDate, true);
-    
-        // dump($availableDate);
 
         return view('alert')->with(['header' => 'Подождите пожалуйста ' . $restTime, 'restTime' => $restTime]);
       }
@@ -97,14 +87,13 @@ class UserController extends Controller
     $application->created_at = Carbon::now();
 
     if ($application->save()) {
-      SendUserMailJob::dispatch(
-        $application->id, 
-        [
-          'name' => $application->theme,
-          'msg' => $application->message,
-          'email' => $application->user->email
-        ]
-      );
+      SendUserMailJob::dispatch([
+        'id' => $application->id,
+        'name' => $application->user->name,
+        'from' => $application->user->email,
+        'theme' => $application->theme,
+        'msg' => $application->message
+      ]);
     }
 
     return redirect($this->redirectTo);

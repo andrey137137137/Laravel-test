@@ -17,26 +17,22 @@ class SendUserMailJob implements ShouldQueue
   /**
    * Undocumented variable
    *
-   * @var Integer
-   */
-  private $id;
-
-  /**
-   * Undocumented variable
-   *
    * @var array
    */
-  private $params = ['name' => '', 'email' => '', 'msg' => ''];
+  private $params = ['id' => 0, 'name' => '', 'from' => '', 'theme' => '', 'msg' => ''];
 
   /**
    * Create a new job instance.
    *
    * @return void
    */
-  public function __construct($id, $params)
+  public function __construct($params)
   {
-    $this->id = $id;
-    $this->params = $params;
+    foreach ($this->params as $key => $value) {
+      if (isset($params[$key])) {
+        $this->params[$key] = $params[$key];
+      }
+    }
   }
 
   /**
