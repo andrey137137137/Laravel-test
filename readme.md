@@ -18,7 +18,7 @@
 4.  php artisan key:generate
 5.  создать базу данных MySQL
 6.  в .env изменить следующие настройки:
-    ..- DB_DATABASE, DB_USERNAME и DB_PASSWORD
-    ..- с префиксом MAIL (я использовал mailtrap.io для тестирования)
+    - DB_DATABASE, DB_USERNAME и DB_PASSWORD
+    - с префиксом MAIL (я использовал mailtrap.io для тестирования)
 7.  php artisan migrate --seed
 8.  php artisan queue:work
