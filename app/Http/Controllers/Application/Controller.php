@@ -1,36 +1,49 @@
 <?php
 
+/**
+ * Промежуточный контроллер, от которого наследуются
+ * другие контроллеры, связанные с моделью App\Application.
+ */
+
 namespace App\Http\Controllers\Application;
 
 use Illuminate\Http\Request;
-use App\Application;
 use Carbon\Carbon;
 
 class Controller extends \App\Http\Controllers\Controller
 {
   /**
-   * Undocumented variable
+   * Представление, по умолчанию,
+   * которое увидит пользователь
+   * после авторизации.
    *
    * @var string
    */
   protected $view = 'home';
 
   /**
-   * Undocumented variable
+   * Маршрут, по умолчанию,
+   * на который будет перенаправлен
+   * пользователь после авторизации.
    *
    * @var string
    */
   protected $redirectTo = '/';
 
   /**
-   * Undocumented variable
+   * Название модели заявок вместе с
+   * пространством имён. Чтобы имя хранилось
+   * в одном месте.
    *
    * @var string
    */
   protected $appModelName = 'App\Application';
 
   /**
-   * Create a new controller instance.
+   * Подключает промежуточный слой для проверки
+   * авторизации и устанавливает Локаль для
+   * отображения единиц измерения времени на
+   * русском языке.
    *
    * @return void
    */
@@ -41,9 +54,10 @@ class Controller extends \App\Http\Controllers\Controller
   }
 
   /**
-   * Undocumented function
+   * Выводит главную страницу для
+   * авторизированных пользователей.
    *
-   * @return void
+   * @return Illuminate\View\View
    */
   public function index() {
     return view($this->view)->with('header', 'Главная');

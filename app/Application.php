@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Модель для таблицы Applications
+ */
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
@@ -7,9 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 class Application extends Model
 {
   /**
-   * Определяет необходимость отметок времени для модели.
+   * Определяет автоматическую обработку отметок времени в модели.
    *
-   * @var bool
+   * @var boolean
    */
   public $timestamps = false;
 
@@ -21,9 +25,9 @@ class Application extends Model
   protected $fillable = ['user_id', 'theme', 'message'];
 
   /**
-   * Undocumented function
+   * Связь с таблицей Users многие к одному.
    *
-   * @return void
+   * @return Illuminate\Database\Eloquent\Model
    */
   public function user() {
     return $this->belongsTo(User::class);

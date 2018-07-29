@@ -10,29 +10,33 @@ use Auth;
 class UserController extends Controller
 {
   /**
-   * Undocumented variable
-   *
-   * @var integer
-   */
-  public $intervalBetweenSending = 1;
-  // public $intervalBetweenSending = 1440;
-
-  /**
-   * Undocumented variable
+   * Представление, которое увидит
+   * пользователь после авторизации.
    *
    * @var string
    */
   protected $view = 'form';
 
   /**
-   * Undocumented variable
+   * Маршрут, на который будет перенаправлен
+   * пользователь после авторизации.
    *
    * @var string
    */
   protected $redirectTo = 'application/form';
 
   /**
-   * Create a new controller instance.
+   * Допустимый интервал между
+   * отправками заявок.
+   *
+   * @var integer
+   */
+  private $intervalBetweenSending = 1440;
+
+  /**
+   * Вызывает родительский конструктор
+   * и подключает промежуточный слой для
+   * обычных авторизированных пользователей.
    *
    * @return void
    */
@@ -43,9 +47,14 @@ class UserController extends Controller
   }
 
   /**
-   * Undocumented function
+   * Выбирает дату создания последней записи таблицы Applications,
+   * где поле 'user_id' равно id текущего пользователя.
+   * Если записи нету, то возвращается представление формы отправки заявки.
+   * Если запись есть, то с помощью переменной $this->intervalBetweenSending
+   * вычисляется сколько осталось времени до следующей возможности отправить
+   * заявку и возвращается представление с сообщением об оставшемся времени.
    *
-   * @return void
+   * @return Illuminate\View\View
    */
   public function index() {
     $application = new $this->appModelName;
@@ -70,15 +79,17 @@ class UserController extends Controller
   }
 
   /**
-   * Undocumented function
+   * Проверяет все ли заполнены свойства объекта $request и в случае успеха
+   * добавляет заявку в таблицу Applications. В случае успешного добавления
+   * заявки в таблицу создаётся задача для очереди App\Jobs\SendUserMailJob.
    *
    * @param Request $request
-   * @return void
+   * @return Illuminate\View\View
    */
   public function insert(Request $request) {
     $this->validate($request, [
       'user_id' => 'required',
-      'theme' => 'required|max:255|unique:applications,theme',
+      'theme' => 'required',
       'message' => 'required']
     );
 

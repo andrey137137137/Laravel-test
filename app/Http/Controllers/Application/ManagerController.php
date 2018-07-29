@@ -2,26 +2,28 @@
 
 namespace App\Http\Controllers\Application;
 
-// use Illuminate\Http\Request;
-
 class ManagerController extends Controller
 {
   /**
-   * Undocumented variable
+   * Представление, которое увидит
+   * менеджер после авторизации.
    *
    * @var string
    */
   protected $view = 'applications';
 
   /**
-   * Undocumented variable
+   * Маршрут, на который будет перенаправлен
+   * менеджер после авторизации.
    *
    * @var string
    */
   protected $redirectTo = 'applications';
 
   /**
-   * Create a new controller instance.
+   * Вызывает родительский конструктор
+   * и подключает промежуточный слой
+   * для менеджеров.
    *
    * @return void
    */
@@ -32,9 +34,9 @@ class ManagerController extends Controller
   }
 
   /**
-   * Show the application dashboard.
+   * Выводит все не отмеченные как "Прочитано" заявки пользователей.
    *
-   * @return \Illuminate\Http\Response
+   * @return Illuminate\View\View
    */
   public function index() {
     $model = $this->appModelName;
@@ -47,16 +49,15 @@ class ManagerController extends Controller
   }
 
   /**
-   * Undocumented function
+   * Отмечает заявку как прочитанную.
    *
    * @param integer $application
-   * @return void
+   * @return Illuminate\View\View
    */
   public function mark($id)
   {
     $model = $this->appModelName;
     $application = $model::find($id);
-    // dump($application);
     $application->marked = 1;
     $application->save();
 

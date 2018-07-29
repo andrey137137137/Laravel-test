@@ -12,21 +12,23 @@ class ApplicationMail extends Mailable
   use Queueable, SerializesModels;
 
   /**
-   * Undocumented variable
+   * Идентификатор таблицы Applications,
+   * который используется как номер заявки.
    *
    * @var integer
    */
   private $id;
 
   /**
-   * Undocumented variable
+   * Параметры, которые отправляются в представление.
    *
    * @var array
    */
   private $params = ['theme' => '', 'msg' => ''];
 
   /**
-   * Create a new message instance.
+   * Заполнение $this->params, адресса и имени
+   * пользователя, от которого отсылается письмо.
    *
    * @return void
    */
@@ -47,7 +49,7 @@ class ApplicationMail extends Mailable
   }
 
   /**
-   * Build the message.
+   * Создание сообщения.
    *
    * @return $this
    */

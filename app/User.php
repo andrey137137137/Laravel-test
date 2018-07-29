@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Модель для таблицы Users
+ */
+
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
@@ -28,18 +32,18 @@ class User extends Authenticatable
   ];
 
   /**
-   * Undocumented function
+   * Связь с таблицей Roles многие к одному.
    *
-   * @return void
+   * @return Illuminate\Database\Eloquent\Model
    */
   public function role() {
     return $this->belongsTo(Role::class);
   }
 
   /**
-   * Undocumented function
+   * Связь с таблицей Applications один ко многим.
    *
-   * @return void
+   * @return Illuminate\Database\Eloquent\Model
    */
   public function applications() {
     return $this->hasMany(Application::class);

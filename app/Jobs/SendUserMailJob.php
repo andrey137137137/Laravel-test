@@ -15,14 +15,16 @@ class SendUserMailJob implements ShouldQueue
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
   /**
-   * Undocumented variable
+   * Массив с допустимыми переменными
    *
    * @var array
    */
   private $params = ['id' => 0, 'name' => '', 'from' => '', 'theme' => '', 'msg' => ''];
 
   /**
-   * Create a new job instance.
+   * Создание задания для очереди.
+   * Проверка в $params допустимых переменных
+   * и заполнение $this->params.
    *
    * @return void
    */
@@ -36,7 +38,8 @@ class SendUserMailJob implements ShouldQueue
   }
 
   /**
-   * Execute the job.
+   * Отправляет с помощью Illuminate\Support\Facades\Mail
+   * письмо на почту to_mail@mail.com.
    *
    * @return void
    */

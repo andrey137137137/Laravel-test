@@ -8,7 +8,9 @@ use Auth;
 class ManagerMiddleware
 {
   /**
-   * Handle an incoming request.
+   * Перенаправляет на главную страницу,
+   * если пользователь не авторизирован
+   * или не имеет прав администратора или клиента.
    *
    * @param  \Illuminate\Http\Request  $request
    * @param  \Closure  $next

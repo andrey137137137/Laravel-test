@@ -53,9 +53,7 @@ class LoginController extends Controller
     $path = '/';
     $role = $this->guard()->user()->role;
 
-    if ($role->edit_user) {
-      // $path = 'users';
-    } else if ($role->edit_application) {
+    if ($role->edit_application) {
       $path = 'applications';
     } else {
       $path = 'application/form';
