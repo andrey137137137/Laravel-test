@@ -31,8 +31,7 @@ class UserController extends Controller
    *
    * @var integer
    */
-  // private $intervalBetweenSending = 1440;
-  private $intervalBetweenSending = 0;
+  private $intervalBetweenSending = 1440;
 
   /**
    * Вызывает родительский конструктор
