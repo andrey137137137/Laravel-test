@@ -18,7 +18,7 @@
           @if (count($applications))
             @foreach ($applications as $item)
               <div class="row">
-                <h2>{{ $item->theme }}</h2>
+                <h2>№ {{ $item->id }}. {{ $item->theme }}</h2>
                 <p>{{ $item->message }}</p>
                 <p>{{ $item->name }}</p>
                 <p>{{ $item->email }}</p>

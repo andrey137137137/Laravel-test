@@ -24,7 +24,7 @@ class ApplicationMail extends Mailable
    *
    * @var array
    */
-  private $params = ['theme' => '', 'msg' => ''];
+  private $params = ['theme' => 'Ошибка!', 'msg' => 'Произошла ошибка при отправке почты от клиента к менеджеру.'];
 
   /**
    * Заполнение $this->params, адресса и имени
@@ -34,12 +34,16 @@ class ApplicationMail extends Mailable
    */
   public function __construct($params)
   {
-    $this->id = isset($params['id']) ? $params['id'] : 0;
+    $this->id = $params['id'];
+    $subject = 'Ошибка!';
 
     if (isset($params['from'])) {
       $name = isset($params['name']) ? $params['name'] : null;
+      $subject = $params['id'] ? 'Заявка №' . $this->id : 'Нет темы';
       $this->from($params['from'], $name);
     }
+
+    $this->subject($subject);
 
     foreach ($this->params as $key => $value) {
       if (isset($params[$key])) {
@@ -55,6 +59,6 @@ class ApplicationMail extends Mailable
    */
   public function build()
   {
-    return $this->view('mail.application')->with($this->params)->subject('Заявка №' . $this->id);
+    return $this->view('mail.application')->with($this->params);
   }
 }
